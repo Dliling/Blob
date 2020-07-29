@@ -123,3 +123,84 @@ Spritesmith.run({
     result.properties
 });
 ```
+
+#### 五、插件基本结构介绍
+插件只能在webpack中运行
+
+I、插件的基本结构
+```
+// 插件名称
+class MyPlugin {
+    // apply方法
+    apply(compiler) {
+        // hooks
+        compiler.hooks.done.tap('My Plugin', (
+            // stats is passed as argument when done hooks is tapped
+            stats
+        ) => {
+            // 处理逻辑
+            console.log('hello world');
+        })
+    }
+}
+
+module.exports = MyPlugin;
+```
+II、插件的使用
+```
+plugins: [new MyPlugin()]
+```
+
+III、插件的错误处理
+
+1. 参数校验阶段可以直接throw抛出
+```
+throw new Error('error');
+```
+2. 通过compilation对象的warnings和errors接收
+```
+compilation.warnings.push('warning);
+compilation.errors.push('errors);
+```
+
+IV、通过compilation进行文件写入
+
+compilation上的assets可以用于文件写入，可以将zip资源包设置到`compilation.assets`对象上
+
+文件写入需要使用[webpack-sources](https://www.npmjs.com/package/webpack-sources)
+```
+const {RawSource} = require('webpack-sources');
+class MyPlugin {
+    constructor(options) {
+        this.options = options;
+    }
+
+    apply(compiler) {
+        const {name} = this.options;
+        compiler.hooks.emit.tapAsync('MyPlugin', (compilation, cb) => {
+            compilation.assets[name] = new RawSource('demo');
+            cb();
+        })
+    }
+}
+```
+
+#### 六、编写一个压缩构建资源为zip包的插件
+要求：
+1. 生成的zip包文件名称可以通过插件传入
+2. 需要使用compiler对象上的特定hooks进行资源的生成
+
+使用[jszip](https://www.npmjs.com/package/jszip)
+```
+var zip = new JSZip();
+ 
+zip.file("Hello.txt", "Hello World\n");
+ 
+var img = zip.folder("images");
+img.file("smile.gif", imgData, {base64: true});
+ 
+zip.generateAsync({type:"blob"}).then(function(content) {
+    // see FileSaver.js
+    saveAs(content, "example.zip");
+});
+```
