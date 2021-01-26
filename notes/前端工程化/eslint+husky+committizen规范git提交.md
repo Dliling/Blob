@@ -4,7 +4,11 @@
 
 [lint-staged](https://www.npmjs.com/package/lint-staged)：参考Git概念的暂存区，即`git add`之后文件就到了暂存区，即待提交
 
-[commitizen](https://www.npmjs.com/package/commitizen)：编写合格的commit信息，较友好的提交信息格式可参考[Commit message 和 Change log 编写指南](http://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html)
+[commitizen](https://www.npmjs.com/package/commitizen)：编写合格的commit信息，较友好的提交信息格式可参考[Commit message 和 Change log 编写指南](http://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html)，全局安装
+
+cz-conventional-changelog
+
+validate-commit-msg
 
 以上的安装就不再说了，主要说下配置～
 
@@ -53,10 +57,17 @@
 
 ```
 // package.json
-"husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -e $GIT_PARAMS"
+{
+  "husky": {
+      "hooks": {
+        "pre-commit": "lint-staged",
+        "commit-msg": "validate-commit-msg"
+      }
+    },
+    "config": {
+			"commitizen": {
+				"path": "./node_modules/cz-conventional-changelog"
+			}
     }
   }
 ```
