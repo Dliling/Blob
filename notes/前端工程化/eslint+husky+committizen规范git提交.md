@@ -74,3 +74,20 @@ validate-commit-msg
 
 我写的比较简洁，多是配置，详细的可参考[commitizen + husky 规范git提交信息](https://www.codenong.com/j5dff4220518825121e3/)
 
+### husky版本升级！！！
+配置husky+eslint+commitizen+lint-staged来约束提交规范,通过拦截git的钩子来实现eslint检查,但是从6.0开始,版本大变更,配置和以前不同,且不兼容!!!
+```
+npm i husky -D
+// package.json
+"scripts" : {
+    "prepare": "husky intall"
+}
+
+npm run prepare
+npx husky add .husky/pre-commit "npm run lint" // 你需要执行的检测
+git add .husky/pre-commit
+```
+
+会在根目录上生成.husky文件夹,里面有你添加的pre-commit钩子的shell文件.
+不需要结合lint-staged使用.
+
