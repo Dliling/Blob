@@ -1,4 +1,3 @@
-[TOC]
 
 #### 为什么说Vue是一个渐进式框架
 
@@ -20,7 +19,7 @@ MVC：Controller将Model的数据展示在View上。Model和View不能直接通�
 
 ​	Controller：用户交互的地方，例如点击事件等
 
-<img src="/Users/liling/Library/Application Support/typora-user-images/image-20210924204044520.png" alt="image-20210924204044520" style="zoom:50%;" />
+<img width="442" alt="mvc" src="https://user-images.githubusercontent.com/23520842/134677798-9f3106a8-1d4a-49c9-a61f-0795339e3634.png">
 
 MVVM：实现了View和Model的自动同步。
 
@@ -30,7 +29,8 @@ MVVM：实现了View和Model的自动同步。
 
 ​	View-Model：将Model转化成View，通过数据绑定，即将后端传递的数据转化成所看到的页面；将View转化成Model，通过事件监听将所看到的页面转化成后端的数据。
 
-<img src="/Users/liling/Library/Application Support/typora-user-images/image-20210924204457306.png" alt="image-20210924204457306" style="zoom:50%;" />
+<img width="450" alt="mvvm" src="https://user-images.githubusercontent.com/23520842/134677711-7ece332a-f84a-47ed-a8ce-c695f18bd099.png">
+
 
 区别：MVVM比MVC精简很多，减少业务与界面的依赖，还解决了数据频繁更新的问题。
 
@@ -38,7 +38,8 @@ Vue不是严格符合MVVM，因为MVVM规定View和Model不能直接通信，但
 
 #### Vue生命周期
 
-<img src="/Users/liling/Downloads/lifecycle.png" alt="lifecycle" style="zoom:50%;" />
+![lifecycle](https://user-images.githubusercontent.com/23520842/134677612-da5ad939-a4d4-467b-84bb-0ebd30cf6c9c.png)
+
 
 #### 修饰符
 
