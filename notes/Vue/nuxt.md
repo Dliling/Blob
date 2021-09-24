@@ -134,7 +134,8 @@ module.exports = {
 
 **5. postcss-px-to-viewport**
 
-<img src="/Users/liling/Downloads/截图.png" alt="截图" />![截图`](/Users/liling/Downloads/截图`.png)
+![截图`](https://user-images.githubusercontent.com/23520842/134681295-6aa631f4-28b6-485e-8ba1-c0bac4842d56.png)
+
 
 **6. 静态资源**
 
