@@ -40,6 +40,7 @@ Vue不是严格符合MVVM，因为MVVM规定View和Model不能直接通信，但
 
 ![lifecycle](https://user-images.githubusercontent.com/23520842/134677612-da5ad939-a4d4-467b-84bb-0ebd30cf6c9c.png)
 
+**由上图可知，```el``` 比```$mount('#app')```优先级要高**
 
 #### 修饰符
 
@@ -62,6 +63,25 @@ Vue不是严格符合MVVM，因为MVVM规定View和Model不能直接通信，但
 
    ```
    <template v-slot:header></template>
+   ```
+   **slot插槽传递数据**
+
+   在向具名插槽提供内容的时候，我们可以在一个 <template> 元素上使用 v-slot 指令，并以 
+
+   v-slot 的参数的形式提供其名称
+
+   **v-slot只能用在template上，除非是在默认插槽上**
+
+   详见[官网](https://cn.vuejs.org/v2/guide/components-slots.html#独占默认插槽的缩写语法)
+   ```
+   // v-slot:slot名字=“自定义数据名”
+   <template v-slot:header="data">
+      <h1>header</h1>
+   </template>
+   // 父组件
+   <ul>
+      <slot name="header"  v-for="item in list" :data="item"></slot>
+   </ul>
    ```
 
 2. v-pre：跳过这个元素和它的子元素的编译过程。可以用来显示原始Mustache标签。跳过大量没有指令的节点会加快编译。
