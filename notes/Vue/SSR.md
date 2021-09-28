@@ -76,7 +76,7 @@ npm run dev
 
 ##### 渲染流程
 
-<img src="C:\Users\ICBC\Desktop\20190702173158457.png" alt="20190702173158457" style="zoom:50%;" />
+![20190702173158457](https://user-images.githubusercontent.com/23520842/135073951-00f633e6-105a-4169-90ba-a685d2e0809c.png)
 
 
 
