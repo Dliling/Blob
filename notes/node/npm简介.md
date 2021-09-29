@@ -99,8 +99,6 @@ npm root -g 命令会告知其在计算机上的确切位置。在 macOS 或 Lin
 npm outdated
 ```
 
-<img src="/Users/liling/Library/Application Support/typora-user-images/image-20201223180512313.png" alt="image-20201223180512313" style="zoom:50%;" />
-
 我们看到版本号是三位的，X. Y. Z。
 
 - X：主版本。当进行不兼容的API更改时，则升级主版本。
@@ -154,41 +152,28 @@ npm list
 
 结果示例如下：
 
-<img src="/Users/liling/Library/Application Support/typora-user-images/image-20201223171945081.png" alt="image-20201223171945081" style="zoom:50%;" />
-
 若仅需要查看顶层的软件包（即在package.json中列出的），则运行：
 
 ```
 npm list --depth=0
 ```
 
-结果示例如下：
-
-<img src="/Users/liling/Library/Application Support/typora-user-images/image-20201223172323139.png" alt="image-20201223172323139" style="zoom:50%;" />
-
 也可以查看全局安装的顶层的软件包：
 
 ```
 npm list -g --depth=0
 ```
-
-![image-20201223174215797](/Users/liling/Library/Application Support/typora-user-images/image-20201223174215797.png)
-
 也可以通过指定软件包的名字，来获取软件包的版本
 
 ```
 npm list vue
 ```
 
-<img src="/Users/liling/Library/Application Support/typora-user-images/image-20201223173537670.png" alt="image-20201223173537670" style="zoom:150%;" />
-
 这个也适用于安装的软件包的依赖：
 
 ```
 npm list semver
 ```
-
-<img src="/Users/liling/Library/Application Support/typora-user-images/image-20201223174006645.png" alt="image-20201223174006645" style="zoom:50%;" />
 
 #### **搜索软件包**
 
@@ -229,4 +214,22 @@ npm run <task-name>
 ```
 npm run start
 ```
+#### npm 读取 config 配置的优先级
 
+**从高到低**依次为:
+
+1. 命令行```npm run XXX --registry=http:XXX```
+
+2. 环境变量,```npm_config```为前缀的环境变量会被识别为npm 的配置属性.
+
+   ```npm_config_registry=http:XXX```
+
+3. 项目```.npmrc``` 文件,存放于项目根目录下的```.npmrc```配置文件
+
+4. 用户```.npmrc```文件,存放于用户根目录下的```.npmrc``` 文件,如```windows```下在```%USERPROFILE%/.npmrc```,Mac下是```$HOME/.npmrc```
+
+5. 全局```.npmrc``` 文件,存放于Node全局的```.npmrc``` 文件.```windows```下在```$PREFIX/etc/.npmrc```,Mac下是```%APPDATA/ect/.npmrc```
+
+6. npm 内置的```.npmrc``` 文件.存放于 npm 包的```.npmrc``` 文件,```/path/to/npm/.npmrc```
+
+7. npm 的默认配置
