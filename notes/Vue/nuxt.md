@@ -274,7 +274,7 @@ cd $home
 npm install
 pm2 start npm -- name nuxt -- run start
 ```
-
+ 4.防止镜像源出问题，建议把```.npmrc```文件也copy到服务器
 **13. 页面渲染之前，想做一些处理，如获取权限等**
 
 两种方案：
