@@ -130,8 +130,110 @@ type可以是git或svn。URL应该是公开的，即便是只读的，能直接�
 是一个脚本命令组成的集合，这些命令在包不同的生命周期被执行。key是生命周期时间，value是需要运行的命令。
 
 详见[scripts](https://docs.npmjs.com/cli/v7/using-npm/scripts)。
+```
+// 查看当前项目的所有命令
+npm run
+```
 
+###### 执行原理
 
+每当执行```npm run```，就会自动新建一个Shell，在这个Shell里面执行指定的脚本命令。
+
+只要是Shell可以运行的命令，就可以写在npm脚本里面。
+
+比较特别的是，```npm run```新建的这个Shell，会将当前目录的```node_modules/.bin```子目录加入 PATH 变量，执行结束后，再将PATH 变量回复原样。
+
+这意味着，当前目录的```node_modules/.bin```子目录里所有脚本，都可以直接用脚本名调用，而不用加上路径。
+
+npm 脚本的唯一要求就是可以在Shell 执行，退出规则要遵守 Shell脚本规则。如果退出码不是 **0**，npm 就会认为这个脚本执行失败。
+
+###### 通配符
+
+***** 表示任意文件名，****** 表示任意一层子目录。
+
+如果要将通配符传入原始命令，防止被 Shell 转义，要将 ***** 转义。
+
+```
+"test": "tap test/\*.js"
+```
+
+###### 传参：`--`
+
+`npm run lint --ignore-path .eslintignore`
+
+###### 执行顺序
+
+若是并行执行（同时执行），可以使用`&`符号
+
+若是继发执行（前一个任务成功，才会执行下一个任务），使用`&&`符号
+
+###### 钩子
+
+`pre` 和`post`两个钩子，如下
+
+```
+"prebuild": "echo run before the build script",
+"build": "vue-cli-service build",
+"postbuild": "echo run after the build script"
+```
+
+执行顺序：`npm run prebuild && npm run build && npm run postbuild`
+
+npm 提供一个`npm_lifecycle_event`变量，返回当前脚本正在执行的脚本名称，如`prebuild`、`build`、`postbuild`。
+
+npm4之前，`prepublish`会在`npm publish`和`npm install`（不带任何参数）之前运行。npm4之后，新钩子`prepare`等同于`prepublish`。npm5之后，`prepublish`只在`npm publish`命令之前执行。
+
+###### 简写形式
+
+```
+npm start -> npm run start
+npm stop -> npm run stop
+npm test -> npm run test
+npm restart -> npm run stop && npm run restart && npm run start 
+```
+
+`npm restart`执行顺序：
+
+`prerestart` -> `prestop` -> `stop` -> `poststop` -> `restart` -> `prestart` -> `start` -> `poststart` -> `postrestart`
+
+###### 变量
+
+可以使用 npm 的内部变量，通过`npm_package_`前缀，可以拿到`package.json`中的字段。
+
+可以通过`process.env`对象，拿到`package.json`的字段值。
+
+```
+// package.json
+{
+	"name": "demo",
+	"repository": {
+		"type": "git"
+	}
+}
+
+process.env.npm_package_name
+process.env.npm_package_repository_type
+```
+
+若是在Bash脚本，可以通过`$npm_package_name`取到
+
+通过`npm_config_`前缀可以拿到npm的配置变量，即`npm config get XX`返回的值。
+
+`package.json`里的`config`可被环境变量覆盖。
+
+```
+// package.json
+{
+	"name": "demo",
+	"config": {
+        "port": 8080
+    }
+}
+
+npm config set demo:port 80
+```
+
+`env`命令可以列出所有环境变量。
 
 ### 依赖类
 
