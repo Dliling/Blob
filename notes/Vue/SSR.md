@@ -161,9 +161,9 @@ routes: [
 	},
 	// 必填
 	{
-		path: '/:two',
+		path: '/:two'
 		name: 'two',
-		component: 'pages/_two/index,vue'
+		component: 'pages/_two/index.vue'
 	}
 ]
 ```
