@@ -80,7 +80,7 @@ validate-commit-msg
 npm i husky -D
 // package.json
 "scripts" : {
-    "prepare": "husky intall"
+    "prepare": "husky install"
 }
 
 npm run prepare
