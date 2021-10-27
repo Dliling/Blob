@@ -4,7 +4,7 @@
 
 [lint-staged](https://www.npmjs.com/package/lint-staged)：参考Git概念的暂存区，即`git add`之后文件就到了暂存区，即待提交
 
-[commitizen](https://www.npmjs.com/package/commitizen)：编写合格的commit信息，较友好的提交信息格式可参考[Commit message 和 Change log 编写指南](http://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html)，全局安装
+[commitizen](https://www.npmjs.com/package/commitizen)：编写合格的commit信息，较友好的提交信息格式可参考[Commit message 和 Change log 编写指南](http://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html)，**全局安装**
 
 cz-conventional-changelog
 
@@ -65,9 +65,9 @@ validate-commit-msg
       }
     },
     "config": {
-			"commitizen": {
-				"path": "./node_modules/cz-conventional-changelog"
-			}
+	"commitizen": {
+		"path": "./node_modules/cz-conventional-changelog"
+	}
     }
   }
 ```
@@ -91,3 +91,9 @@ git add .husky/pre-commit
 会在根目录上生成.husky文件夹,里面有你添加的pre-commit钩子的shell文件.
 不需要结合lint-staged使用.
 
+结合`validate-commit-msg`校验提交信息
+```
+npx husky add .husky/commit-msg "npx --no-install validate-commit-msg"
+// --no-install 表示强制npx使用项目中node_modules目录中的包
+```
+husky中详细的钩子函数参见[GitHook 工具 —— husky介绍及使用](https://www.cnblogs.com/jiaoshou/p/12222665.html)
