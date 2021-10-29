@@ -44,7 +44,7 @@ Vue的路有懒加载在开发环境中热加载效率非常低，所以需要�
    	{
    		path: '/home',
    		name: 'Home',
-   		component: import('Home/index')
+   		component: () => import('Home/index')
    	}
    ];
    ```
